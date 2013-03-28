@@ -1,0 +1,45 @@
+Speak: A Simple VoIP Client
+
+Before beginning, you should note: this application was written and compiled using cygwin (with /dev/dsp as the sound device), so I am not sure how
+it will react on other systems.
+
+To build and run this project, cd into the "hodde" directory and run "make"
+
+-------------------------------------------------------------------------------
+                          Using the Server
+-------------------------------------------------------------------------------
+Then, to start the server, type: ./server <port> <protocol>
+	Example: ./server 5000 TCP
+This will start listening for client connections through a TCP socket.
+
+The arguments supported by the Server can be used the following way: ./server <port> <protocol> <sample rate> <sample size>
+	Example: ./server 5000 TCP 8000 8
+There are defaults if these values are not specified.
+
+Both TCP and UDP are supported.
+
+-------------------------------------------------------------------------------
+                          Using the Client
+-------------------------------------------------------------------------------
+To start to the client, open a separate terminal (on a different machine if you wish) and type: ./client <hostname> <port> <protocol>
+	Example: ./client ccc.wpi.edu 5000 TCP
+	
+It is preferable that the protocol of the client and server match to avoid confusion, so the client will exit if it detects an incorrect protocol.
+Both the client and the server will exit if they are not given appropriate arguments.
+
+The client will accept error rates and variables for sample rate and sample size (however they are not fully implemented, so the results
+will not change much). The defaults [if nothing is specified otherwise] are:
+	- Error Rate: 0
+	- Sample Rate: 8000
+	- Sample Size: 8
+	
+Both TCP and UDP are supported.
+Speech detection is not supported.
+
+
+Noteworthy:
+	- Two way conversation is not really possible with just one client and one server at this time. The way I have been testing this application is
+	 by opening up 3 terminals (one server and two clients). Then, once both clients are conneceted to the server, I am able to talk and send audio
+	 data to the server to be played. This is essentially a one way form of communication right now, however each two way communication would be possible
+	 if there was a client and server on each machine. Basically, the server receives the audio data and then plays it rather than sending it to the
+	 other client.
